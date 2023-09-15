@@ -1,11 +1,10 @@
+import { ProductPage } from "./pages/ProductPage.jsx";
 
-function App() {
-
+export const App = () => {
+  
   return (
     <>
-      vite
+    <ProductPage/>
     </>
-  )
-}
-
-export default App
+  );
+};
