@@ -61,10 +61,6 @@ export const ProductPage = () => {
     setPaginatedProducts(currentProducts);
   }, [currentPage, products, productsPerPage]);
   
-  console.log(`%c products:`, `color: #f505ed`, products);
-  console.log(`%c paginate:`, `color: #0af015`, paginatedProducts);
-  console.log(`%c storage:`, `color: #f0c60a`, JSON.parse(localStorage.getItem('products')));
-  
   return (
     <>
       <Typography>Product List</Typography>
@@ -76,6 +72,7 @@ export const ProductPage = () => {
         dragOverItem={dragOverItem}
         handleSort={handleSort}
         paginatedProducts={paginatedProducts}
+        products={products}
       />
       
       <Stack spacing={2}>
