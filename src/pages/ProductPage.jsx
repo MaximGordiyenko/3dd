@@ -21,7 +21,7 @@ export const ProductPage = () => {
   const [newProduct, setNewProduct] = useState("");
   const addItem = () => {
     const newItems = [...products];
-    newItems.push({
+    newItems.unshift({
       userId: newItems.length + 1,
       id: newItems.length + 1,
       title: newProduct,

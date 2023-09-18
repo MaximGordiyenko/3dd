@@ -1,4 +1,4 @@
-import { CardContent, Typography, Card, TextField } from "@mui/material";
+import { CardContent, Typography, Card, TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { setProducts } from "../redux/actions/products.action.js";
 import { useDispatch } from "react-redux";
@@ -46,13 +46,19 @@ export const DragAndDropCard = ({
     setEditedTitle(event.target.value);
   };
   
+  const handleDelete = (itemId) => {
+    const newItem = [...products];
+    const updatedItems = newItem.filter((item) => item.id !== itemId);
+    dispatch(setProducts(updatedItems));
+  };
+  
   return (
     <div>
       {
         paginatedProducts?.map((item, index) => (
           <Card
             key={item.id}
-            sx={{ maxWidth: 600, my: 2, mx: 'auto' }}
+            sx={{ maxWidth: 600, my: 2, mx: 'auto', cursor: 'pointer', display: 'flex', justifyContent: 'space-between' }}
             raised={true}
             draggable
             onDragStart={() => (dragItem.current = index)}
@@ -78,6 +84,7 @@ export const DragAndDropCard = ({
                   </Typography>
                 )}
             </CardContent>
+            <Button key={item.id} onClick={() => handleDelete(item.id)}>🗑️</Button>
           </Card>
         ))
       }
