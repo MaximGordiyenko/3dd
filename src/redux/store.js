@@ -1,13 +1,12 @@
 import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { productsReducer, selectedProductsReducer } from "./reducers/products.reducer.js";
+import { productsReducer } from "./reducers/products.reducer.js";
 
 // import { monitorReducerEnhancer } from './enhancers/monitorReducers';
 import logger from './middleware/logger';
 
 const reducers = combineReducers({
   productsReducer,
-  selectedProductsReducer,
 });
 
 export const configureStore = (preloadedState) => {

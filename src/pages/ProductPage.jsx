@@ -5,20 +5,21 @@ import { Stack, Pagination, Typography, Button } from '@mui/material';
 import { api } from "../apis/index.js";
 import { DragAndDropCard } from "../components/DragAndDropCard.jsx";
 import { Input } from "../components/Input.jsx";
+import { useLocalStorage } from "../utils/hooks.js";
 
 export const ProductPage = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state?.productsReducer.products);
-  localStorage.setItem('products', JSON.stringify(products));
-  
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 10;
   const [paginatedProducts, setPaginatedProducts] = useState([]);
+  const [newProduct, setNewProduct] = useState("");
   
+  const products = useSelector((state) => state?.productsReducer.products);
+  useLocalStorage('products', products);
+  
+  const productsPerPage = 10;
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
   
-  const [newProduct, setNewProduct] = useState("");
   const addItem = () => {
     const newItems = [...products];
     newItems.unshift({
@@ -31,14 +32,15 @@ export const ProductPage = () => {
     setNewProduct("");
   };
   
-  //const handle drag sorting
   const handleSort = () => {
     let sortedProducts = [...products];
-    const draggedProduct = sortedProducts.splice(dragItem.current, 1)[0];
-    sortedProducts.splice(dragOverItem.current, 0, draggedProduct);
+    const [draggedProduct] = sortedProducts.splice((currentPage - 1) * productsPerPage + dragItem.current, 1);
+    sortedProducts.splice((currentPage - 1) * productsPerPage + dragOverItem.current, 0, draggedProduct);
+    
+    dispatch(setProducts(sortedProducts));
+    
     dragItem.current = null;
     dragOverItem.current = null;
-    dispatch(setProducts(sortedProducts));
   };
   
   useEffect(() => {

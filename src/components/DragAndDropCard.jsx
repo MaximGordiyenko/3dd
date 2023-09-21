@@ -61,8 +61,8 @@ export const DragAndDropCard = ({
             sx={{ maxWidth: 600, my: 2, mx: 'auto', cursor: 'pointer', display: 'flex', justifyContent: 'space-between' }}
             raised={true}
             draggable
-            onDragStart={() => (dragItem.current = index)}
-            onDragEnter={() => (dragOverItem.current = index)}
+            onDragStart={() => dragItem.current = index}
+            onDragEnter={() => dragOverItem.current = index}
             onDragEnd={handleSort}
             onDragOver={(e) => e.preventDefault()}>
             <CardContent>
@@ -80,7 +80,7 @@ export const DragAndDropCard = ({
                   <Typography
                     variant="div"
                     onDoubleClick={() => handleDoubleClick(item)}>
-                    {item.title}
+                    {item.id} {item.title}
                   </Typography>
                 )}
             </CardContent>
